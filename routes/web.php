@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\TweetController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,11 +22,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware('auth')->group(function () {
 
-Route::get('/home', [HomeController::class,'index'] )->name('home');
-Route::post('/tweets',[TweetController::class,'store']);
+    Route::get('/tweets', [TweetController::class,'index'] )->name('home');
+    Route::post('/tweets',[TweetController::class,'store']);
+});
+
+Route::get('profiles/{user:name}',[ProfileController::class,'show'])->name('profile');
+Route::post('profiles/{user:name}/follow',[FollowController::class,'store'])->name('followThis');
+Route::get('profiles/{user:name}/edit',[ProfileController::class,'edit'])
+    ->name('profile.edit')->middleware('can:edit,user');
+
+Route::get('logout', function () {
+    Auth::logout();
+});
 
 require __DIR__.'/auth.php';
