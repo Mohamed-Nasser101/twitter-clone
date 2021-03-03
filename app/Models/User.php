@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'avatar'
     ];
 
     /**
@@ -53,8 +55,9 @@ class User extends Authenticatable
         return $this->hasMany(Tweet::class)->latest();
     }
 
-    public function getAvatarAttribute(){
-        return "https://i.pravatar.cc/200?u=" . $this->email;
+    public function getAvatarAttribute($value){
+        //return "https://i.pravatar.cc/200?u=" . $this->email;
+        return asset($value);
     }
 
     // public function getRouteKeyName()

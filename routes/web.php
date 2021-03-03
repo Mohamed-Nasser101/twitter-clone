@@ -28,10 +28,11 @@ Route::middleware('auth')->group(function () {
     Route::post('/tweets',[TweetController::class,'store']);
 });
 
-Route::get('profiles/{user:name}',[ProfileController::class,'show'])->name('profile');
-Route::post('profiles/{user:name}/follow',[FollowController::class,'store'])->name('followThis');
-Route::get('profiles/{user:name}/edit',[ProfileController::class,'edit'])
+Route::get('profiles/{user:username}',[ProfileController::class,'show'])->name('profile');
+Route::post('profiles/{user:username}/follow',[FollowController::class,'store'])->name('followThis');
+Route::get('profiles/{user:username}/edit',[ProfileController::class,'edit'])
     ->name('profile.edit')->middleware('can:edit,user');
+Route::patch('profiles/{user:username}/updste',[ProfileController::class,'update'])->name('profile.update');
 
 Route::get('logout', function () {
     Auth::logout();
