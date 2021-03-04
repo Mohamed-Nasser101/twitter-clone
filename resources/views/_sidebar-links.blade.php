@@ -27,8 +27,10 @@
             class="font-bold text-lg mb-4 block"
             href="#"
         >Profile</a></li>
-    <li><a
-            class="font-bold text-lg block"
-            href="#"
-        >More</a></li>
+    <li>
+        <form method="post" action="/logout">
+            @csrf
+            <button class="font-bold text-lg">Logout</button>
+        </form>
+    </li>
 </ul>

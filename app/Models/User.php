@@ -48,16 +48,16 @@ class User extends Authenticatable
         $ids = $this->follows()->pluck('following_user_id');
         $ids->push($this->id);
 
-        return Tweet::whereIn('user_id',$ids)->latest()->with('user')->get();
+        return Tweet::whereIn('user_id',$ids)->latest()->with('user')->paginate(10);
     }
 
     public function tweets(){
         return $this->hasMany(Tweet::class)->latest();
     }
 
-    public function getAvatarAttribute($value){
-        //return "https://i.pravatar.cc/200?u=" . $this->email;
-        return asset($value);
+    public function getAvatarAttribute(){
+        return "https://i.pravatar.cc/200?u=" . $this->email;
+        //return asset($value);
     }
 
     // public function getRouteKeyName()

@@ -32,10 +32,7 @@ Route::get('profiles/{user:username}',[ProfileController::class,'show'])->name('
 Route::post('profiles/{user:username}/follow',[FollowController::class,'store'])->name('followThis');
 Route::get('profiles/{user:username}/edit',[ProfileController::class,'edit'])
     ->name('profile.edit')->middleware('can:edit,user');
-Route::patch('profiles/{user:username}/updste',[ProfileController::class,'update'])->name('profile.update');
-
-Route::get('logout', function () {
-    Auth::logout();
-});
+Route::patch('profiles/{user:username}/updste',[ProfileController::class,'update'])
+        ->middleware('can:edit,user')->name('profile.update');
 
 require __DIR__.'/auth.php';

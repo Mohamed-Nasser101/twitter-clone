@@ -6,6 +6,7 @@
             name="body"
             class="w-full"
             placeholder="What's up doc?"
+            required
         ></textarea>
 
         <hr class="my-4">
@@ -20,7 +21,7 @@
                 type="submit"
                 class="bg-blue-500 rounded-lg shadow py-2 px-2 text-white"
             >
-                Tweet-a-roo!
+                Publish
             </button>
         </footer>
     </form>
