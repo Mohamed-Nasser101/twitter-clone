@@ -20,3 +20,4 @@
         @endforelse
     </ul>
 </div>
+<script src="http://unpkg.com/turbolinks"></script>

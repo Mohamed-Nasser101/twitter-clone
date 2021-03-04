@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\TweetLikesContriller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,8 @@ Route::get('profiles/{user:username}/edit',[ProfileController::class,'edit'])
     ->name('profile.edit')->middleware('can:edit,user');
 Route::patch('profiles/{user:username}/updste',[ProfileController::class,'update'])
         ->middleware('can:edit,user')->name('profile.update');
+
+Route::post('/tweets/{tweet}/like',[TweetLikesContriller::class,'store']);
+Route::delete('/tweets/{tweet}/like',[TweetLikesContriller::class,'destroy']);
 
 require __DIR__.'/auth.php';

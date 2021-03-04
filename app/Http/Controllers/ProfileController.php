@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     public function show(User $user){
-       // dd($user->tweets);
+        
         return view('profile.show',[
             'user' => $user//->with('tweets')
         ]);
