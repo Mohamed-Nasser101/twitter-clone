@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Like;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Tweet;
@@ -15,55 +16,30 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
-            'name' =>'mohamed',
-            'username' =>'me',
-            'email' =>'m@m.com'
-        ]);
-        User::factory(10)->create();
+        User::factory(20)->create();
+
+        Tweet::factory(200)->create();
+
+        for($i = 0 ;$i < 500 ; $i++){
+            $user = User::inRandomOrder()->first();
+            $tweet = Tweet::inRandomOrder()->first();
+            $liked = [true,false];
+            $rand = rand(0,1);
+
+            if($tweet->isLikedBy($user) || $tweet->isDislikedBy($user) ){ continue; }
+
+            $user->likes()->create([
+                'tweet_id' => $tweet->id,
+                'liked' => $liked[$rand],
+            ]);
+        }
 
 
-        Tweet::factory(5)->create([
-            'user_id' => 1
-        ]);
+        for($i = 0 ;$i < 300 ; $i++){
+            $user1 = User::inRandomOrder()->first();
+            $user2 = User::inRandomOrder()->first();
 
-        Tweet::factory(50)->create();
-
-        User::find(1)->follow(User::find(2));
-        User::find(1)->follow(User::find(3));
-        User::find(1)->follow(User::find(4));
-        User::find(1)->follow(User::find(5));
-        User::find(1)->follow(User::find(6));
-        User::find(1)->follow(User::find(7));
-        User::find(1)->follow(User::find(8));
-        User::find(1)->follow(User::find(9));
-
-        User::find(2)->follow(User::find(1));
-        User::find(2)->follow(User::find(3));
-        User::find(2)->follow(User::find(4));
-        User::find(2)->follow(User::find(5));
-        User::find(2)->follow(User::find(6));
-        User::find(2)->follow(User::find(7));
-        User::find(2)->follow(User::find(8));
-        User::find(2)->follow(User::find(9));
-
-        User::find(3)->follow(User::find(1));
-        User::find(3)->follow(User::find(2));
-        User::find(3)->follow(User::find(4));
-        User::find(3)->follow(User::find(5));
-        User::find(3)->follow(User::find(6));
-        User::find(3)->follow(User::find(7));
-        User::find(3)->follow(User::find(8));
-        User::find(3)->follow(User::find(9));
-
-
-        User::find(4)->follow(User::find(1));
-        User::find(4)->follow(User::find(2));
-        User::find(4)->follow(User::find(3));
-        User::find(4)->follow(User::find(5));
-        User::find(4)->follow(User::find(6));
-        User::find(4)->follow(User::find(7));
-        User::find(4)->follow(User::find(8));
-        User::find(4)->follow(User::find(9));
+            $user1->toggleFollow($user2);
+        }
     }
 }
