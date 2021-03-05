@@ -32,6 +32,10 @@ class Tweet extends Model
             ['liked' => false]);
     }
 
+    public function unlike(){
+        return $this->likes()->where('user_id',auth()->id())->delete();
+    }
+
     public function isLikedBy(User $user){
         return (bool) $user->likes->where('user_id',$user->id)->where('liked',true)->where('tweet_id',$this->id)->count();
     }

@@ -12,15 +12,15 @@ class ProfileController extends Controller
     public function show(User $user){
 
         return view('profile.show',[
-            'user' => $user//->with('tweets')
+            'user' => $user,//->with('tweets')
+            'tweets' => $user->tweets()->with('user')->withLikes()->paginate(50),
         ]);
     }
 
     public function edit(User $user){
 
         return view('profile.edit',[
-            'user' => $user,
-            'tweets' => $user->tweets()->withLikes()->paginate(50),
+            'user' => $user
         ]);
     }
 
@@ -30,6 +30,7 @@ class ProfileController extends Controller
             'username' => ['required','string','max:255',
                 Rule::unique('users')->ignore($user),'alpha_dash'],
             'name' => 'required|string|max:255',
+            'description' => 'required|string',
             'email' => ['required','string','max:255',
                 Rule::unique('users')->ignore($user),'email'],
             'password' => 'required|string|confirmed|min:8',

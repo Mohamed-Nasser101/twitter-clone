@@ -38,5 +38,7 @@ Route::patch('profiles/{user:username}/updste',[ProfileController::class,'update
 
 Route::post('/tweets/{tweet}/like',[TweetLikesContriller::class,'store']);
 Route::delete('/tweets/{tweet}/like',[TweetLikesContriller::class,'destroy']);
+Route::delete('/tweets/{tweet}/delete',[TweetController::class,'destroy'])
+    ->middleware('can:delete,tweet')->name('tweet.delete');
 
 require __DIR__.'/auth.php';
