@@ -43,6 +43,6 @@
     </header>
 
     @include ('_timeline', [
-        'tweets' => $user->tweets()->with('user')->paginate(50)
+        'tweets' =>$tweets
     ])
 @endsection

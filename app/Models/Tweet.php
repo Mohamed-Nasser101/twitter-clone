@@ -33,11 +33,11 @@ class Tweet extends Model
     }
 
     public function isLikedBy(User $user){
-        return (bool) $user->likes->where('user_id',$user->id)->where('liked',true)->count();
+        return (bool) $user->likes->where('user_id',$user->id)->where('liked',true)->where('tweet_id',$this->id)->count();
     }
 
     public function isDislikedBy(User $user){
-        return (bool) $user->likes->where('user_id',$user->id)->where('liked',false)->count();
+        return (bool) $user->likes->where('user_id',$user->id)->where('liked',false)->where('tweet_id',$this->id)->count();
     }
 
     public function scopeWithLikes(Builder $query){

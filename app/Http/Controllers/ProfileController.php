@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     public function show(User $user){
-        
+
         return view('profile.show',[
             'user' => $user//->with('tweets')
         ]);
@@ -19,7 +19,8 @@ class ProfileController extends Controller
     public function edit(User $user){
 
         return view('profile.edit',[
-            'user' => $user
+            'user' => $user,
+            'tweets' => $user->tweets()->withLikes()->paginate(50),
         ]);
     }
 
